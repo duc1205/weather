@@ -12,6 +12,8 @@ class CallToApi {
     try {
       Position currentPosition = await getCurrentPosition();
 
+      print("~~~~~~~~~~ $currentPosition");
+
       if (current) {
         List<Placemark> placemarks = await placemarkFromCoordinates(currentPosition.latitude, currentPosition.longitude);
 

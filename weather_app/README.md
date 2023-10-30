@@ -1,16 +1,20 @@
 # weather_app
 
-A new Flutter project.
+A new Flutter project run by Android
 
-## Getting Started
+use: Flutter 3.7.11
+api: api.openweathermap.org
+apiKey: ae20ae23e27e59ec7ae40fac377b59dd
 
-This project is a starting point for a Flutter application.
+- B1: clone project
+- B2: flutter pub get
+- B3: run project
+- B4: In my app, click icon "Search" ở góc trên bên phải để tìm kiếm thành phố bạn mong muốn 
+    Input: City name
+    Output: City name, Temperature, Weather condition
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Error when not find: Exception to load weather data occurred
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+

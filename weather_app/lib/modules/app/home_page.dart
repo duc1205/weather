@@ -6,6 +6,7 @@ import 'package:weather_app/modules/data/datasources/services/weather_service.da
 import 'package:weather_app/modules/domain/model/weather.dart';
 
 class HomePage extends StatefulWidget {
+  static const name = "homePage";
   const HomePage({super.key});
 
   @override
@@ -37,11 +38,44 @@ class _HomePageState extends State<HomePage> {
         builder: (ctx, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             if (snapshot.hasError) {
-              return Center(
-                child: Text(
-                  '${snapshot.error.toString()} occurred',
-                  style: const TextStyle(fontSize: 18),
-                ),
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    '${snapshot.error.toString()} occurred',
+                    style: const TextStyle(fontSize: 18),
+                  ),
+                  const SizedBox(height: 10),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(4),
+                    child: Stack(
+                      children: <Widget>[
+                        Positioned.fill(
+                          child: Container(
+                            decoration: const BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: <Color>[
+                                  Color(0xFF0D47A1),
+                                  Color(0xFF1976D2),
+                                  Color(0xFF42A5F5),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        TextButton(
+                          style: TextButton.styleFrom(
+                            foregroundColor: Colors.white,
+                            padding: const EdgeInsets.all(16.0),
+                            textStyle: const TextStyle(fontSize: 20),
+                          ),
+                          onPressed: () => initState(),
+                          child: const Text('Home'),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               );
             } else if (snapshot.hasData) {
               final data = snapshot.data as Weather;
@@ -87,19 +121,38 @@ class _HomePageState extends State<HomePage> {
                           textController.clear();
                         },
                         style: const TextStyle(),
-                        onSubmitted: (String) {},
+                        onSubmitted: (String location) {
+                          location == ""
+                              ? log("No city entered")
+                              : setState(() {
+                                  _myData = getData(false, location);
+                                });
+
+                          FocusScope.of(context).unfocus();
+                          textController.clear();
+                        },
                       ),
                       Expanded(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(
-                              data.city,
-                              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.normal, color: Colors.white),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Icon(
+                                  Icons.location_on_outlined,
+                                  color: Colors.white,
+                                  size: 26,
+                                ),
+                                Text(
+                                  data.city,
+                                  style: const TextStyle(fontSize: 24, fontWeight: FontWeight.normal, color: Colors.white),
+                                ),
+                              ],
                             ),
                             const SizedBox(height: 25),
                             Text(
-                              data.desc,
+                              data.desc.toUpperCase(),
                               style: const TextStyle(fontSize: 16, fontWeight: FontWeight.normal, color: Colors.white),
                             ),
                             const SizedBox(height: 25),
@@ -121,7 +174,18 @@ class _HomePageState extends State<HomePage> {
             );
           } else {
             return Center(
-              child: Text("${snapshot.connectionState} occured"),
+              child: Column(
+                children: [
+                  Text("${snapshot.connectionState} occured"),
+                  TextButton(
+                    onPressed: () {},
+                    child: const Text(
+                      "Home",
+                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal, color: Colors.black),
+                    ),
+                  ),
+                ],
+              ),
             );
           }
           return const Center(
