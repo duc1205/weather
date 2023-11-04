@@ -9,7 +9,8 @@ B2: flutter pub get
 
 B3: run project
 
-B4: In my app, click icon "Search" ở góc trên bên phải để tìm kiếm thành phố bạn mong muốn Input: City name Output: City name, Temperature, Weather condition
+B4: In my app, click icon "Search" ở góc trên bên phải để tìm kiếm thành phố bạn mong muốn 
+Input: City name Output: City name, Temperature, Weather condition
 
 Error when not find: Exception to load weather data occurred
 
